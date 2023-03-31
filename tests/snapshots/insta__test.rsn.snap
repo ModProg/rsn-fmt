@@ -1,0 +1,11 @@
+---
+source: tests/insta.rs
+expression: formatted
+---
+Hello {
+    hello: hi,
+    PI:  [
+        3.14,
+        3
+    ],
+}
