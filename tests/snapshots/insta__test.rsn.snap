@@ -4,7 +4,7 @@ expression: formatted
 ---
 Hello {
     hello: hi,
-    PI:  [
+    PI: [
         3.14,
         3
     ],

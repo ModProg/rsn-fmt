@@ -10,6 +10,7 @@ readme = "README.md"
 repository = "https://github.com/ModProg/rsn-fmt"
 
 [dependencies]
+clap = { version = "4.2.1", features = ["derive", "wrap_help"] }
 # rsn = { git = "https://github.com/khonsulabs/rsn" }
 rsn = { git = "https://github.com/ModProg/rsn", branch = "infinit-ws-loop" }
 # rsn = { path = "../rsn/" }

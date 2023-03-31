@@ -90,7 +90,7 @@ pub fn format_str(source: &str) -> String {
         }
         if kind != TokenKind::Whitespace {
             nled = matches!(kind, TokenKind::Comma | TokenKind::Open(_));
-            spaced = kind == TokenKind::Comma;
+            spaced = kind == TokenKind::Colon;
         }
     }
     f
