@@ -1,4 +1,5 @@
 use include_dir::include_dir;
+use rsn_fmt::Config;
 
 const INPUTS: include_dir::Dir = include_dir!("$CARGO_MANIFEST_DIR/tests/input");
 
@@ -8,7 +9,7 @@ fn format() {
         let contents = file.as_file().unwrap().contents_utf8().unwrap();
         // TODO let before: OwnedValue = rsn::from_str(contents).unwrap();
 
-        let formatted = rsn_fmt::format_str(&contents);
+        let formatted = rsn_fmt::format_str(contents, &Config::default()).unwrap();
 
         println!("{formatted}");
         // let after: OwnedValue = rsn::from_str(formatted).unwrap();
