@@ -433,6 +433,7 @@ dependencies = [
 [[package]]
 name = "rsn"
 version = "0.1.0"
+source = "git+https://github.com/ModProg/rsn?branch=clonable-tokenizer#256ac755d549ee6fa3a9e51ca28f3d5f7d3e2e8c"
 dependencies = [
  "serde",
  "unicode-ident",
