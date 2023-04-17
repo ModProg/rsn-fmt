@@ -69,7 +69,7 @@ pub fn format_str(source: &str, config: &Config) -> Result<String> {
     let mut opened = Vec::new();
     let mut nled = false;
     let mut spaced = false;
-    let nl = config.line_ending;
+    let nl = config.line_ending(source);
     while let Some(token) = tokenizer.next() {
         let Token { location, kind } = token?;
         match kind {

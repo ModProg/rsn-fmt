@@ -1,5 +1,3 @@
-use std::fmt::Display;
-
 use serde::{Deserialize, Serialize};
 use smart_default::SmartDefault;
 
@@ -40,6 +38,29 @@ impl Config {
             width: self.indent,
         }
     }
+
+    pub(crate) fn line_ending(&self, source: &str) -> &'static str {
+        #[cfg(not(windows))]
+        const platform: &str = "\n";
+        #[cfg(windows)]
+        const platform: &str = "\n\r";
+        match self.line_ending {
+            LineEnding::Detect => {
+                if let Some(idx) = source.find('\n') {
+                    if matches!(source.as_bytes().get(idx + 1), Some(b'\r')) {
+                        "\n\r"
+                    } else {
+                        "\n"
+                    }
+                } else {
+                    platform
+                }
+            }
+            LineEnding::Platform => platform,
+            LineEnding::Lf => "\n",
+            LineEnding::LfCr => "\n\r",
+        }
+    }
 }
 
 #[derive(Deserialize, Serialize, Default, Debug, Clone, Copy)]
@@ -75,27 +96,19 @@ impl PreserveEmptyLines {
 #[derive(Deserialize, Serialize, Default, Debug, Clone, Copy)]
 /// Line endings to use
 pub enum LineEnding {
+    /// Detect line endings from input
+    ///
+    /// Uses the first line ending encountered, if the file does not have any
+    /// line breaks, falls back to [`Platform`](Self::Platform).
+    #[default]
+    Detect,
     /// Use platform line endings
     ///
     /// - `\n\r` on Windows
     /// - `\n` everywhere else
-    #[default]
     Platform,
     /// Use unix line endings (`\n`)
     Lf,
     /// Use windows line endings (`\n\r`)
     LfCr,
-}
-
-impl Display for LineEnding {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            #[cfg(not(windows))]
-            LineEnding::Platform => writeln!(f),
-            LineEnding::Lf => writeln!(f),
-            #[cfg(windows)]
-            LineEnding::Platform => write!(f, "\n\r"),
-            LineEnding::LfCr => write!(f, "\n\r"),
-        }
-    }
 }
