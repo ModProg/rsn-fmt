@@ -433,6 +433,7 @@ dependencies = [
 [[package]]
 name = "rsn"
 version = "0.1.0"
+source = "git+https://github.com/khonsulabs/rsn#589c46582edf6d44177098fae09063ed451f72d8"
 dependencies = [
  "serde",
  "unicode-ident",

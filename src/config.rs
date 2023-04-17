@@ -41,9 +41,9 @@ impl Config {
 
     pub(crate) fn line_ending(&self, source: &str) -> &'static str {
         #[cfg(not(windows))]
-        const platform: &str = "\n";
+        const PLATFORM: &str = "\n";
         #[cfg(windows)]
-        const platform: &str = "\n\r";
+        const PLATFORM: &str = "\n\r";
         match self.line_ending {
             LineEnding::Detect => {
                 if let Some(idx) = source.find('\n') {
@@ -53,10 +53,10 @@ impl Config {
                         "\n"
                     }
                 } else {
-                    platform
+                    PLATFORM
                 }
             }
-            LineEnding::Platform => platform,
+            LineEnding::Platform => PLATFORM,
             LineEnding::Lf => "\n",
             LineEnding::LfCr => "\n\r",
         }

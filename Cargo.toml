@@ -16,9 +16,10 @@ derive_more = "0.99.17"
 dirs-next = "2.0.0"
 extend = "1.2.0"
 figment = { version = "0.10.8", features = ["env"] }
-# rsn = { git = "https://github.com/khonsulabs/rsn" }
-# rsn = { git = "https://github.com/ModProg/rsn", branch = "clonable-tokenizer", features = ["std"] }
-rsn.path = "../rsn/" 
+rsn.git = "https://github.com/khonsulabs/rsn"
+# rsn.git = "https://github.com/ModProg/rsn"
+# rsn.branch = "clonable-tokenizer" 
+# rsn.path = "../rsn/" 
 rsn.features = ["std"]
 serde = { version = "1.0.160", features = ["derive"] }
 smart-default = "0.6.0"
