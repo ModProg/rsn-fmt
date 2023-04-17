@@ -3,7 +3,6 @@
 use std::fmt::{Display, Write};
 use std::ops::Range;
 
-use derive_more::From;
 use rsn::tokenizer::{self, Balanced, Token, TokenKind, Tokenizer};
 use thiserror::Error;
 
@@ -16,12 +15,12 @@ use utils::*;
 
 type Result<T, E = Error> = std::result::Result<T, E>;
 
-#[derive(Error, Debug, From)]
+#[derive(Error, Debug)]
 /// Error returned from [`format_str`]
 pub enum Error {
     /// Error Originating from Tokenization
     #[error("tokenizer error: {_0:?}")]
-    Tokenizer(tokenizer::Error),
+    Tokenizer(#[from] tokenizer::Error),
     /// Missmatched delimiter e.g. `( ... ]` or `... }`
     #[error("missmatched delimiter at {_0:?}")]
     MissmatchedDelimiter(Range<usize>),
