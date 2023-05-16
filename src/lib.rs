@@ -126,8 +126,7 @@ pub fn format_str(source: &str, config: &Config) -> Result<String> {
                     return Err(Error::MissmatchedDelimiter(location));
                 }
             }
-            TokenKind::Whitespace => {
-                let ws = &source[location.clone()];
+            TokenKind::Whitespace(ws) => {
                 match config.preserve_empty_lines {
                     config::PreserveEmptyLines::One => {
                         if ws.chars().filter(|c|*c=='\n').count() > 1 {
@@ -148,7 +147,7 @@ pub fn format_str(source: &str, config: &Config) -> Result<String> {
                 }
             }
         }
-        if kind != TokenKind::Whitespace {
+        if !matches!(kind, TokenKind::Whitespace(_)) {
             nled = matches!(kind, TokenKind::Comma | TokenKind::Open(_));
             spaced = kind == TokenKind::Colon;
         }
@@ -236,19 +235,15 @@ fn format_single_line(
                     return Ok(Some(f));
                 }
             }
-            TokenKind::Whitespace => {
-                if source[location.clone()]
-                    .chars()
-                    .filter(|c| *c == '\n')
-                    .count()
-                    > 1
+            TokenKind::Whitespace(ws) => {
+                if ws.chars().filter(|c| *c == '\n').count() > 1
                     && !config.preserve_empty_lines.is_none()
                 {
                     return Ok(None);
                 }
             }
         }
-        if kind != TokenKind::Whitespace {
+        if !matches!(kind, TokenKind::Whitespace(_)) {
             spaced = matches!(
                 kind,
                 TokenKind::Colon | TokenKind::Comma | TokenKind::Open(Balanced::Brace)

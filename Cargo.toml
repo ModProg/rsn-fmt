@@ -10,24 +10,20 @@ readme = "README.md"
 repository = "https://github.com/ModProg/rsn-fmt"
 
 [dependencies]
-anyhow = "1.0.70"
-clap = { version = "4.2.1", features = ["derive", "wrap_help"] }
+rsn = { git = "https://github.com/khonsulabs/rsn", rev = "3e85f0a7cba2989f97e8da79ff9792837bad3b91", features = [ "std" ] }
+anyhow = "1.0.71"
+clap = { version = "4.2.7", features = ["derive", "wrap_help"] }
 derive_more = "0.99.17"
 dirs-next = "2.0.0"
 extend = "1.2.0"
 figment = { version = "0.10.8", features = ["env"] }
-rsn.git = "https://github.com/khonsulabs/rsn"
-# rsn.git = "https://github.com/ModProg/rsn"
-# rsn.branch = "clonable-tokenizer" 
-# rsn.path = "../rsn/" 
-rsn.features = ["std"]
-serde = { version = "1.0.160", features = ["derive"] }
-smart-default = "0.6.0"
+serde = { version = "1.0.163", features = ["derive"] }
+smart-default = "0.7.1"
 thiserror = "1.0.40"
 
 [dev-dependencies]
 include_dir = "0.7.3"
-insta = { version = "1.28.0" }
+insta = { version = "1.29.0" }
 
 [profile.dev.package.insta]
 opt-level = 3

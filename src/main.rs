@@ -58,7 +58,7 @@ fn load_config(path: Option<&Path>) -> Result<Config, figment::Error> {
 struct Rsn;
 
 impl Format for Rsn {
-    type Error = rsn::parser::Error;
+    type Error = rsn::de::Error;
 
     const NAME: &'static str = "RSN";
 
