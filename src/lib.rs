@@ -104,13 +104,15 @@ pub fn format_str(source: &str, config: &Config) -> Result<String> {
                         w!(f, "{single_line}");
                     }
                     _ => {
-                        indent.inc();
-                        opened.push(delimiter);
-                        if spaced || delimiter.is_brace() {
+                        if nled {
+                            w!(f, "{indent}{}{nl}", delimiter.open());
+                        } else if spaced || delimiter.is_brace() {
                             w!(f, " {}{nl}", delimiter.open());
                         } else {
                             w!(f, "{}{nl}", delimiter.open());
                         }
+                        opened.push(delimiter);
+                        indent.inc();
                         tokenizer = tmp;
                     }
                 }
@@ -166,6 +168,7 @@ fn format_single_line(
     let mut spaced = delimiter == Balanced::Brace;
     let mut comma = false;
     let mut empty = true;
+    let mut unspaced = true;
     w!(f, "{}", delimiter.open());
     for token in tokenizer {
         let Token { location, kind } = token?;
@@ -213,7 +216,8 @@ fn format_single_line(
                 w!(f, "{}", &source[location]);
             }
             TokenKind::Comment(_) => {
-                todo!("comment")
+                // TODO inline comment
+                return Ok(None);
             }
             TokenKind::Colon => {
                 w!(f, ":");
@@ -221,13 +225,17 @@ fn format_single_line(
             TokenKind::Comma => comma = true,
             TokenKind::Open(delimiter) => {
                 opened.push(delimiter);
-                if spaced || delimiter == Balanced::Brace {
+                if (spaced || delimiter == Balanced::Brace) && !unspaced {
                     w!(f, " ");
                 }
                 w!(f, "{}", delimiter.open());
             }
             TokenKind::Close(delimiter) => {
-                w!(f, "{}", delimiter.close());
+                if delimiter == Balanced::Brace {
+                    w!(f, " {}", delimiter.close());
+                } else {
+                    w!(f, "{}", delimiter.close());
+                }
                 if opened.is_empty() || delimiter != opened.pop().expect("opened is not empty") {
                     return Err(Error::MissmatchedDelimiter(location));
                 }
@@ -243,11 +251,12 @@ fn format_single_line(
                 }
             }
         }
-        if !matches!(kind, TokenKind::Whitespace(_)) {
+        if !kind.is_white_space() {
             spaced = matches!(
                 kind,
                 TokenKind::Colon | TokenKind::Comma | TokenKind::Open(Balanced::Brace)
             );
+            unspaced = kind.is_open();
         }
         empty |= !(kind.is_value() || kind.is_comment() || kind.is_close());
     }

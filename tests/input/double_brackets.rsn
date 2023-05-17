@@ -1,0 +1,31 @@
+[
+    Assign {
+        a: [[[]]],
+        b: A( { a: hello, b: bye}),
+        name: "var",
+        assignment: Function(
+ {
+                arguments: [],
+                body: [
+                    Exit {
+                        scope: Root,
+                        value: Lit("Hello World!"),
+                    }
+                ]
+            }
+        )
+    },
+    Exit {
+        scope: Root,
+        value: Block {
+            name: "some_scope",
+            instructions: [
+                Assign {
+                    name: "something",
+                    assignment: Lit(5),
+                },
+                Exit { scope: Block, value: Lit(10)},
+            ],
+        },
+    },
+]

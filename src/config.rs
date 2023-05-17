@@ -5,6 +5,7 @@ use crate::Indent;
 
 #[derive(Deserialize, Serialize, SmartDefault, Debug, Clone)]
 /// Configuration for rsnfmt
+#[serde(default)]
 pub struct Config {
     /// Max line width
     #[default = 60]

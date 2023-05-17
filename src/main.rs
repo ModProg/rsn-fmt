@@ -69,7 +69,7 @@ impl Format for Rsn {
 
 fn main() -> Result {
     let opts = Opts::parse();
-    let config = load_config(opts.config.as_deref())?;
+    let config = load_config(opts.config.as_deref()).context("loading config")?;
     for file in &opts.files {
         fs::write(
             file,

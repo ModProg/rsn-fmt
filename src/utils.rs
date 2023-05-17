@@ -47,4 +47,12 @@ pub(crate) impl TokenKind<'_> {
     fn is_close(&self) -> bool {
         matches!(self, TokenKind::Close(_))
     }
+
+    fn is_open(&self) -> bool {
+        matches!(self, TokenKind::Open(_))
+    }
+
+    fn is_white_space(&self) -> bool {
+        matches!(self, TokenKind::Whitespace(_))
+    }
 }
