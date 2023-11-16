@@ -7,6 +7,7 @@ use clap::Parser;
 use dirs_next::config_dir;
 use figment::providers::{Env, Format};
 use figment::Figment;
+use rsn::de::DeserializerError;
 use rsn_fmt::Config;
 
 type Result<T = (), E = Error> = std::result::Result<T, E>;
@@ -58,12 +59,12 @@ fn load_config(path: Option<&Path>) -> Result<Config, figment::Error> {
 struct Rsn;
 
 impl Format for Rsn {
-    type Error = rsn::de::Error;
+    type Error = rsn::de::DeserializerError;
 
     const NAME: &'static str = "RSN";
 
     fn from_str<T: serde::de::DeserializeOwned>(string: &str) -> Result<T, Self::Error> {
-        rsn::from_str(string)
+        rsn::from_str(string).map_err(|e| DeserializerError::new(Some(e.location), e.kind))
     }
 }
 
