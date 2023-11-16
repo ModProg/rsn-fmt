@@ -48,8 +48,8 @@ impl Config {
         match self.line_ending {
             LineEnding::Detect => {
                 if let Some(idx) = source.find('\n') {
-                    if matches!(source.as_bytes().get(idx + 1), Some(b'\r')) {
-                        "\n\r"
+                    if matches!(source.as_bytes().get(idx - 1), Some(b'\r')) {
+                        "\r\n"
                     } else {
                         "\n"
                     }
@@ -59,7 +59,7 @@ impl Config {
             }
             LineEnding::Platform => PLATFORM,
             LineEnding::Lf => "\n",
-            LineEnding::LfCr => "\n\r",
+            LineEnding::CrLf => "\r\n",
         }
     }
 }
@@ -111,5 +111,5 @@ pub enum LineEnding {
     /// Use unix line endings (`\n`)
     Lf,
     /// Use windows line endings (`\n\r`)
-    LfCr,
+    CrLf,
 }
