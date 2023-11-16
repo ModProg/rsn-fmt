@@ -44,7 +44,7 @@ impl Config {
         #[cfg(not(windows))]
         const PLATFORM: &str = "\n";
         #[cfg(windows)]
-        const PLATFORM: &str = "\n\r";
+        const PLATFORM: &str = "\r\n";
         match self.line_ending {
             LineEnding::Detect => {
                 if let Some(idx) = source.find('\n') {
