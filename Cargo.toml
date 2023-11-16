@@ -10,7 +10,7 @@ readme = "README.md"
 repository = "https://github.com/ModProg/rsn-fmt"
 
 [dependencies]
-rsn = { git = "https://github.com/khonsulabs/rsn", rev = "3e85f0a7cba2989f97e8da79ff9792837bad3b91", features = [ "std" ] }
+rsn = { git = "https://github.com/khonsulabs/rsn", rev = "3e85f0a7cba2989f97e8da79ff9792837bad3b91", features = ["std"], version = "0.1.0" }
 anyhow = "1.0.71"
 clap = { version = "4.2.7", features = ["derive", "wrap_help"] }
 derive_more = "0.99.17"
