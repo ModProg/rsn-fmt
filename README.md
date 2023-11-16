@@ -3,7 +3,7 @@
 [![CI Status](https://github.com/ModProg/rsn-fmt/actions/workflows/test.yaml/badge.svg)](https://github.com/ModProg/rsn-fmt/actions/workflows/test.yaml)
 [![Crates.io](https://img.shields.io/crates/v/rsn-fmt)](https://crates.io/crates/rsn-fmt)
 [![Docs.rs](https://img.shields.io/crates/v/template?color=informational&label=docs.rs)](https://docs.rs/rsn-fmt)
-[![Documentation for `main`](https://img.shields.io/badge/docs-main-informational)](https://modprog.github.io/rsn-fmt/rsn-fmt/)
+[![Documentation for `main`](https://img.shields.io/badge/docs-main-informational)](https://modprog.github.io/rsn-fmt/rsn_fmt/)
 
 ## Configuration
 
