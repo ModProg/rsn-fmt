@@ -1,6 +1,6 @@
 [package]
 name = "rsn-fmt"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 categories = ["command-line-utilities", "development-tools", "value-formatting"]
 description = "The rsn formatter"
